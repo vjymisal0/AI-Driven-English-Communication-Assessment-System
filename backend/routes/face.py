@@ -7,6 +7,7 @@ import gridfs
 from datetime import datetime
 from pymongo import MongoClient
 from flask_cors import CORS
+from bson import ObjectId
 import ffmpeg
 bp = Blueprint('face', __name__)
 camera = None

@@ -1,30 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import "./VideosPage.css"
-import ReactPlayer from 'react-player/lazy'
+import './VideosPage.css';
+import { useNavigate } from 'react-router-dom';
+
 const VideosPage = () => {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentVideoSrc, setCurrentVideoSrc] = useState("");
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const fetchVideos = async () => {
+        // Perform authentication check before fetching videos
+        const checkAuthAndFetchVideos = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/face/get_videos');
-                const data = await response.json();
+                // Check for a valid token in localStorage
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    navigate('/signin');
+                    return;
+                }
+
+                // If the token exists, check its validity by making an API request
+                const authResponse = await fetch('http://localhost:3000/assessment', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`, // Send token in the request header
+                    }
+                });
+
+                if (!authResponse.ok) {
+                    throw new Error('Authentication failed');
+                }
+
+                // If authentication succeeds, fetch the video data
+                const videoResponse = await fetch('http://127.0.0.1:5000/face/get_videos');
+                const data = await videoResponse.json();
+
+                // Sort videos by upload date in descending order
                 const sortedVideos = data.videos.sort((a, b) => new Date(b.upload_date) - new Date(a.upload_date));
                 setVideos(sortedVideos);
                 setLoading(false);
+
             } catch (error) {
-                console.error('Error fetching videos:', error);
+                console.error('Error during authentication or video fetch:', error);
                 setLoading(false);
+                navigate('/signin'); // Redirect to sign-in on error
             }
         };
 
-        fetchVideos();
-    }, []);
+        checkAuthAndFetchVideos(); // Trigger the function on initial render
+    }, [navigate]);
 
     const handleVideoClick = (fileId) => {
-        const videoUrl = `http://127.0.0.1:5000/face/video/${fileId}`; // Use backticks for string interpolation
+        const videoUrl = `http://127.0.0.1:5000/face/video/${fileId}`;
         console.log(videoUrl);
         const anchor = document.createElement('a');
         anchor.href = videoUrl;
@@ -33,8 +62,6 @@ const VideosPage = () => {
         anchor.click();
         document.body.removeChild(anchor);
     };
-
-
 
     if (loading) {
         return <div>Loading videos...</div>;
@@ -60,17 +87,12 @@ const VideosPage = () => {
                             <button onClick={() => handleVideoClick(video.file_id)}>
                                 Download Video
                             </button>
-
-
                         </div>
-
                     ))
                 )}
-
             </div>
         </div>
     );
 };
-
 
 export default VideosPage;

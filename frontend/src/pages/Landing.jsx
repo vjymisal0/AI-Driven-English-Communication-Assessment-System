@@ -16,7 +16,7 @@ export const Landing = () => {
                     </p>
                     <div className="mt-8 flex flex-wrap gap-6">
                         <button
-                            onClick={() => navigate('/authpage')}
+                            onClick={() => navigate('/assessment')}
                             className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-300"
                         >
                             Get Started

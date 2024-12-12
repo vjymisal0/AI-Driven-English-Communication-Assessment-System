@@ -101,6 +101,7 @@ export const Assessment = () => {
 
     // Ensure browser compatibility for Speech Recognition
     useEffect(() => {
+        checkAuth();
         if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
             alert("Browser does not support speech recognition.");
         }
@@ -293,6 +294,29 @@ export const Assessment = () => {
     const goToVideos = () => {
         navigate('/videos'); // Redirect to "videos" route using useNavigate
     };
+
+    const checkAuth = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/signin');
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000/assessment', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+        catch (error) {
+            console.error("Error checking authentication:", error);
+        }
+    };
+
 
     return (
         <div className='flex flex-col p-2 bg-gradient-to-r from-indigo-50 via-blue-100 to-indigo-200 min-h-screen'>
