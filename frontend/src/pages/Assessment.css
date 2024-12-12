@@ -1,0 +1,164 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+}
+
+/* Main container */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.bg-gray-100 {
+    background-color: #f7fafc;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+/* Header styles */
+h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #4c51bf;
+}
+
+p {
+    font-size: 1.25rem;
+    text-align: center;
+    color: #4a5568;
+}
+
+/* Controls */
+.controlContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.transcriptionBox {
+    background-color: #2d3748;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    flex: 1;
+    margin-right: 20px;
+}
+
+.videoContainer {
+    background-color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+
+.timerContainer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.timerText {
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+/* Button Styles */
+.button {
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primaryButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.primaryButton:hover {
+    background-color: #45a049;
+}
+
+.secondaryButton {
+    background-color: #FF5733;
+    color: white;
+}
+
+.secondaryButton:hover {
+    background-color: #e14a28;
+}
+
+/* Question section styles */
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.w-80 {
+    width: 20rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.border-2 {
+    border-width: 2px;
+}
+
+.border-indigo-500 {
+    border-color: #4c51bf;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-gray-800 {
+    color: #2d3748;
+}
+
+/* Timer text color */
+.text-red-600 {
+    color: red;
+}
