@@ -62,9 +62,10 @@ The **AI-Driven English Communication Assessment System** is an innovative platf
     ```
 
 3. Set up backend and APIs:  
-   - Install and configure Google Cloud Speech-to-Text API.  
-   - Set up TensorFlow.js models for language assessment.  
+   - Install and configure Google Cloud Speech-to-Text API.    
    - Connect to MongoDB for user and assessment data storage.
+   - Set up Flask API for video processing and speech analysis.
+
 
 4. Start the app locally:  
     ```bash
