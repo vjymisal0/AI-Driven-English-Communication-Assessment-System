@@ -21,7 +21,7 @@ const VideosPage = () => {
                 }
 
                 // If the token exists, check its validity by making an API request
-                const authResponse = await fetch('http://localhost:3000/assessment', {
+                const authResponse = await fetch('https://backend-node-u13c.onrender.com/assessment', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const VideosPage = () => {
                 }
 
                 // If authentication succeeds, fetch the video data
-                const videoResponse = await fetch('http://127.0.0.1:5000/face/get_videos');
+                const videoResponse = await fetch('https://ai-communication-tool.onrender.com/face/get_videos');
                 const data = await videoResponse.json();
 
                 // Sort videos by upload date in descending order
@@ -53,7 +53,7 @@ const VideosPage = () => {
     }, [navigate]);
 
     const handleVideoClick = (fileId) => {
-        const videoUrl = `http://127.0.0.1:5000/face/video/${fileId}`;
+        const videoUrl = `https://ai-communication-tool.onrender.com/face/video/${fileId}`;
         console.log(videoUrl);
         const anchor = document.createElement('a');
         anchor.href = videoUrl;

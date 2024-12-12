@@ -50,7 +50,7 @@ export const Signup = () => {
                     label="Signup"
                     onClick={async () => {
                         console.log(firstname + " " + lastname);
-                        const response = await axios.post("http://localhost:3000/user/signup", {
+                        const response = await axios.post("https://backend-node-u13c.onrender.com/user/signup", {
                             firstname,
                             lastname,
                             username,

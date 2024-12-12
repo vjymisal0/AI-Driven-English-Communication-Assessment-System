@@ -4,6 +4,8 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 import { Page, Text, View, Document, PDFDownloadLink, StyleSheet } from '@react-pdf/renderer';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+
 
 const styles = StyleSheet.create({
     page: {
@@ -133,7 +135,10 @@ export const Assessment = () => {
             }
         });
     };
-
+    const token = localStorage.getItem("token"); // Replace 'authToken' with the key used in your app
+    const decodedToken = jwtDecode(token); // Decode the token
+    const userid = decodedToken.userid;
+    console.log(userid)
     // Start assessment, video feed, and timer
     const startAssessment = async () => {
         setIsRecording(true); // Start recording
@@ -183,6 +188,7 @@ export const Assessment = () => {
             console.log("No audio blob created.");
         }
     };
+  
 
     // Stop assessment, video feed, and timer
     const stopAssessment = async () => {
@@ -196,7 +202,7 @@ export const Assessment = () => {
         // Stop camera
         try {
             console.log("Transcript being sent:", transcript);
-            const response = await fetch('http://127.0.0.1:5000/grammer/check', {
+            const response = await fetch('https://ai-communication-tool.onrender.com/grammer/check', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -217,7 +223,7 @@ export const Assessment = () => {
         if (dat) {
             try {
 
-                const response = await fetch("http://127.0.0.1:5000/face/stop_camera", {
+                const response = await fetch("https://ai-communication-tool.onrender.com/face/stop_camera", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json", // Inform the server of JSON payload
@@ -260,7 +266,7 @@ export const Assessment = () => {
                 formData.append('audio_data', audioBlob, 'recorded_audio.wav');
                 formData.append('type', 'wav');
 
-                const response = await fetch('http://127.0.0.1:5000/grammer/check_pauses', {
+                const response = await fetch('https://ai-communication-tool.onrender.com/grammer/check_pauses', {
                     method: 'POST',
                     cache: 'no-cache',
                     body: formData,
@@ -319,7 +325,7 @@ export const Assessment = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:3000/assessment', {
+            const response = await fetch('https://backend-node-u13c.onrender.com/assessment', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

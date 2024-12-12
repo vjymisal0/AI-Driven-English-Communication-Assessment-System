@@ -7,6 +7,8 @@ import { Assessment } from './pages/Assessment'
 import { Landing } from './pages/Landing'
 import VideosPage from './pages/VideosPage';
 import Authentications from './pages/Authentications'
+
+
 function App() {
   return (
     <div>
