@@ -186,48 +186,64 @@ export const Assessment = () => {
 
     // Stop assessment, video feed, and timer
     const stopAssessment = async () => {
+
+
+        var dat = {}
+
         setIsRecording(false); // Stop recording
         SpeechRecognition.stopListening();
         if (audioRecorder) audioRecorder.stop();
-
         // Stop camera
-        try {
-            const response = await fetch("http://127.0.0.1:5000/face/stop_camera", {
-                method: "POST",
-                credentials: "same-origin",
-            });
-            if (response.ok) {
-                console.log("Camera stopped successfully.");
-            } else {
-                console.error("Failed to stop the camera.");
-            }
-        } catch (error) {
-            console.error("Error in stopping the camera:", error);
-        }
-
-        // Stop assessment and check grammar
-        setShowFace(false);
-        console.log("Stopping assessment...");
-
         try {
             console.log("Transcript being sent:", transcript);
             const response = await fetch('http://127.0.0.1:5000/grammer/check', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+
                 },
                 body: JSON.stringify({ transcript }),
             });
 
-            const resp = await response.json();
-            console.log("API Response:", resp);
-            setscores(resp); // Update the state
-            console.log(scores)
+            dat = await response.json();
+            console.log("API Response:", dat);
+            setscores(dat); // Update the state
+            console.log(dat)
         } catch (err) {
             console.error("Error in grammar check:", err);
         }
-    };
 
+
+        if (dat) {
+            try {
+
+                const response = await fetch("http://127.0.0.1:5000/face/stop_camera", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json", // Inform the server of JSON payload
+                    },
+                    body: JSON.stringify({ userid, dat }) // Correctly stringify the JSON object
+                });
+                console.log(response)
+                if (response.ok) {
+                    console.log("Camera stopped successfully.");
+                } else {
+                    console.log(response)
+                    console.error("Failed to stop the camera.");
+                }
+            } catch (error) {
+                console.error("Error in stopping the camera:", error);
+            }
+        }
+
+        // Stop assessment and check grammar
+        setShowFace(false);
+
+
+        console.log("Stopping assessment...");
+
+
+    };
 
 
     // Save the audio file (connect with backend for actual upload)

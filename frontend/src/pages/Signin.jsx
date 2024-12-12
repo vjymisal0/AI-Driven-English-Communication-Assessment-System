@@ -6,11 +6,12 @@ import { SubHeading } from "../component/Subheading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 export const Signin = () => {
     const [username, setusername] = useState("");
     const [password, setpassword] = useState(""); // Password state
     const navigate = useNavigate();
-
     const handleSignin = async () => {
         // Validate inputs
         if (!username || !password) {

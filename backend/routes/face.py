@@ -116,26 +116,49 @@ def video_feed():
 @bp.route('/stop_camera', methods=['POST'])
 def stop_camera():
     global camera, total_time, eye_contact_time, tracking_started, start_time
-    camera.release()  # Release the camera
-    total_time = 0
-    eye_contact_time = 0
-    tracking_started = False
-    start_time = None
-    # Determine content type of the video (now mp4)
-    content_type = "video/mp4"  # Change to MP4 content type
-    # Upload the video to MongoDB with contentType
-    with open(TEMP_VIDEO_PATH, "rb") as video_file:
-        file_id = fs.put(
-            video_file,
-            filename="session_video.mp4",  # Save the video as .mp4
-            upload_date=datetime.utcnow(),
-            contentType=content_type  # Adding content type metadata
-        )
-    # Remove the temporary file
-    if os.path.exists(TEMP_VIDEO_PATH):
-        os.remove(TEMP_VIDEO_PATH)
-    return jsonify({"success": True, "message": "Camera stopped and video uploaded", "file_id": str(file_id)}), 200
-    
+    try:
+        print(camera)
+        camera.release()  # Release the camera
+        total_time = 0
+        eye_contact_time = 0
+        tracking_started = False
+        start_time = None
+
+        # Determine content type of the video (now mp4)
+        content_type = "video/mp4"  # Change to MP4 content type
+
+        # Parse request data
+        data = request.get_json()
+        print("data",data)
+        user_id = ObjectId(data["userid"])  # Convert user ID to ObjectId
+        print(user_id)
+
+        speech_analysis = data["dat"]  # Default to an empty string if not provided
+        print("speech",speech_analysis)
+
+        # Upload the video to MongoDB with contentType
+        with open(TEMP_VIDEO_PATH, "rb") as video_file:
+            file_id = fs.put(
+                video_file,
+                filename="session_video.mp4",  # Save the video as .mp4
+                upload_date=datetime.utcnow(),
+                contentType=content_type,
+                metadata={
+                    "userid": user_id,  # Include the user ID as metadata
+                    "SpeechAnalysis": speech_analysis  # Include speech analysis as metadata
+                }
+            )
+        print(1)
+
+        # Remove the temporary file
+        if os.path.exists(TEMP_VIDEO_PATH):
+            os.remove(TEMP_VIDEO_PATH)
+
+        return jsonify({"success": True, "message": "Camera stopped and video uploaded", "file_id": str(file_id)}), 200
+
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        return jsonify({"success": False, "message": "An error occurred", "error": str(e)}), 500
     
 '''
 #this stop_camera function is used to stop the camera and upload the video to the mongodb with username as videoname
