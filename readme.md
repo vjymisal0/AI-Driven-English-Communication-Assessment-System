@@ -97,13 +97,13 @@ The **AI-Driven English Communication Assessment System** is an innovative platf
 
 ---
 
-- **[Team Name: Stunner]**  
+- **Team Name: Stunner**  
 ## **Team Members**
 
-- **[Darshan Jadhav]**  
-- **[Mayuri Phad]**  
-- **[Pranav Hore]**
-- **[Vijay Misal]**  
+- **Darshan Jadhav**  
+- **Mayuri Phad**  
+- **Pranav Hore**
+- **Vijay Misal**  
 
 
 ---
