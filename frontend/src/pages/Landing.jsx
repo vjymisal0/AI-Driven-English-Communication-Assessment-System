@@ -1,8 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export const Landing = () => {
     const navigate = useNavigate();
+    const handleAuth = () => {
+        navigate('/authpage');
+    };
     return (
         <div className="min-h-screen bg-white flex items-center justify-center relative py-16">
             <div className="grid max-w-screen-xl px-6 mx-auto lg:grid-cols-12 gap-8">
@@ -32,6 +36,9 @@ export const Landing = () => {
                                     clipRule="evenodd"
                                 ></path>
                             </svg>
+                        </button>
+                        <button className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-300" onClick={handleAuth}>
+                            Go to Authentication
                         </button>
                        
                     </div>
