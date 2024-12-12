@@ -16,7 +16,7 @@ export const Landing = () => {
                     </p>
                     <div className="mt-8 flex flex-wrap gap-6">
                         <button
-                            onClick={() => navigate('/get-started')}
+                            onClick={() => navigate('/authpage')}
                             className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 transition-all duration-300"
                         >
                             Get Started
@@ -33,18 +33,7 @@ export const Landing = () => {
                                 ></path>
                             </svg>
                         </button>
-                        <button
-                            onClick={() => navigate('/signup')}
-                            className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-white bg-indigo-500 rounded-lg shadow-md hover:bg-indigo-600 focus:ring-4 focus:ring-indigo-300 transition-all duration-300"
-                        >
-                            Signup
-                        </button>
-                        <button
-                            onClick={() => navigate('/signin')}
-                            className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-indigo-600 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200 focus:ring-4 focus:ring-indigo-300 transition-all duration-300"
-                        >
-                            Signin
-                        </button>
+                       
                     </div>
                 </div>
 
